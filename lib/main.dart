@@ -8,7 +8,7 @@ void main() {
       home: Scaffold(
         backgroundColor: Colors.teal,
         appBar: AppBar(
-          title: Text('Dicee'),
+          title: Text('Dice App'),
           backgroundColor: Colors.teal,
         ),
         body: DicePage(),
@@ -25,6 +25,15 @@ class DicePage extends StatefulWidget {
 class _DicePageState extends State<DicePage> {
   int rightDiceNumber = 1;
   int leftDiceNumber = 2;
+  void generateRandNum() {
+    setState(
+      () {
+        leftDiceNumber = Random().nextInt(6) + 1;
+        rightDiceNumber = Random().nextInt(6) + 1;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,32 +43,18 @@ class _DicePageState extends State<DicePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Expanded(
-                child: FlatButton(
-                  onPressed: () {
-                    setState(
-                      () {
-                        leftDiceNumber = Random().nextInt(6) + 1;
-                      },
-                    );
-
-                    print('Left Botton Got Pressed.');
-                  },
+                child: Container(
+                  padding: EdgeInsets.all(10),
                   child: Image.asset('images/dice$leftDiceNumber.png'),
                 ),
               ),
               Expanded(
-                child: FlatButton(
+                child: Container(
+                  padding: EdgeInsets.all(10),
                   child: Image.asset('images/dice$rightDiceNumber.png'),
-                  onPressed: () {
-                    setState(
-                      () {
-                        rightDiceNumber = Random().nextInt(6) + 1;
-                      },
-                    );
-                    print('Right Botton Got Pressed.');
-                  },
                 ),
               ),
             ],
@@ -74,10 +69,7 @@ class _DicePageState extends State<DicePage> {
               size: 40,
             ),
             onPressed: () {
-              setState(() {
-                leftDiceNumber = Random().nextInt(6) + 1;
-                rightDiceNumber = Random().nextInt(6) + 1;
-              });
+              generateRandNum();
             },
           )
         ],
